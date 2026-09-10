@@ -12,7 +12,15 @@
   padding: 0.875rem 1rem; margin-bottom: 0.75rem;
 }
 .metaLabel { font-size: 0.8125rem; font-weight: 600; color: var(--color-subtle); margin-bottom: 0.375rem; }
-.metaBody { font-size: 0.9375rem; line-height: 1.5; }
+.metaBody {
+  font-size: 0.9375rem; line-height: 1.5;
+  p { margin-bottom: 0.4rem; }
+  p:last-child { margin-bottom: 0; }
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.4rem; li { margin-bottom: 0.2rem; } }
+  blockquote { border-left: 3px solid var(--color-accent); padding-left: 0.75rem; color: var(--color-subtle); font-style: italic; margin: 0.4rem 0; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+}
 .divider { border: none; border-top: 1px solid var(--color-border); margin: 1.5rem 0; }
 .section { margin-bottom: 2rem; }
 .sectionTitle { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }

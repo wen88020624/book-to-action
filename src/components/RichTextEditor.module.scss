@@ -56,6 +56,8 @@
 
 .editorContent {
   min-height: 140px;
+  max-height: 360px;
+  overflow-y: auto;
   padding: 0.875rem 1rem;
   cursor: text;
 }

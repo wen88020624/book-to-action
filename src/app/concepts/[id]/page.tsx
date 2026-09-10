@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import BackLink from "@/components/BackLink"
+import RichTextEditor from "@/components/RichTextEditor"
 import styles from "./page.module.scss"
 
 interface Book { id: string; title: string }
@@ -27,10 +28,37 @@ const statusClass: Record<string, string> = {
 export default function ConceptDetailPage() {
   const { id } = useParams<{ id: string }>()
   const [concept, setConcept] = useState<Concept | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editBody, setEditBody] = useState("")
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     fetch(`/api/concepts/${id}`).then(r => r.json()).then(setConcept)
   }, [id])
+
+  function startEdit() {
+    if (!concept) return
+    setEditBody(concept.body)
+    setIsEditing(true)
+  }
+
+  function cancelEdit() {
+    setIsEditing(false)
+    setEditBody("")
+  }
+
+  async function saveConcept() {
+    if (!concept || !editBody.trim()) return
+    setSaving(true)
+    await fetch(`/api/concepts/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body: editBody }),
+    })
+    setConcept(prev => prev ? { ...prev, body: editBody } : prev)
+    setIsEditing(false)
+    setSaving(false)
+  }
 
   if (!concept) return <div className={styles.loading}>載入中...</div>
 
@@ -41,11 +69,39 @@ export default function ConceptDetailPage() {
       <BackLink href={book ? `/books/${book.id}` : "/"} label={book ? book.title : "首頁"} />
 
       <div className={styles.conceptBox}>
-        <p className={styles.conceptLabel}>💡 Concept</p>
-        <div
-          className={styles.conceptBody}
-          dangerouslySetInnerHTML={{ __html: concept.body }}
-        />
+        <div className={styles.conceptHeader}>
+          <p className={styles.conceptLabel}>💡 Concept</p>
+          {!isEditing && (
+            <button onClick={startEdit} className={styles.editHint}>編輯</button>
+          )}
+        </div>
+
+        {isEditing ? (
+          <>
+            <RichTextEditor
+              value={concept.body}
+              onChange={setEditBody}
+              placeholder="用自己的話寫下你吸收到的概念"
+            />
+            <div className={styles.editActions}>
+              <button onClick={cancelEdit} className={styles.cancelBtn}>取消</button>
+              <button
+                onClick={saveConcept}
+                disabled={saving || !editBody.trim()}
+                className={styles.saveBtn}
+              >
+                {saving ? "儲存中..." : "儲存"}
+              </button>
+            </div>
+          </>
+        ) : (
+          <div
+            className={styles.conceptBody}
+            onClick={startEdit}
+            title="點擊編輯"
+            dangerouslySetInnerHTML={{ __html: concept.body }}
+          />
+        )}
       </div>
 
       {book && (

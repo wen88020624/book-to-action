@@ -91,14 +91,14 @@ export default function ExperimentDetailPage() {
       {concept && (
         <div className={styles.metaCard}>
           <p className={styles.metaLabel}>💡 Concept</p>
-          <p className={styles.metaBody}>{concept.body}</p>
+          <div className={styles.metaBody} dangerouslySetInnerHTML={{ __html: concept.body }} />
         </div>
       )}
 
       {exp.problem && (
         <div className={styles.metaCard}>
           <p className={styles.metaLabel}>❓ Problem</p>
-          <p className={styles.metaBody}>{exp.problem}</p>
+          <div className={styles.metaBody} dangerouslySetInnerHTML={{ __html: exp.problem }} />
         </div>
       )}
 

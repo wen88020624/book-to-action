@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState, Suspense } from "react"
 import BackLink from "@/components/BackLink"
+import RichTextEditor from "@/components/RichTextEditor"
 import styles from "./page.module.scss"
 
 function NewExperimentForm() {
@@ -9,6 +10,7 @@ function NewExperimentForm() {
   const searchParams = useSearchParams()
   const conceptId = searchParams.get("conceptId")
   const [conceptBody, setConceptBody] = useState("")
+  const [problemBody, setProblemBody] = useState("")
   const [loading, setLoading] = useState(false)
 
   const today = new Date().toISOString().split("T")[0]
@@ -26,7 +28,7 @@ function NewExperimentForm() {
     const data = {
       title: form.get("title") as string,
       description: form.get("description") as string,
-      problem: form.get("problem") as string,
+      problem: problemBody || null,
       startDate: form.get("startDate") as string,
       endDate: form.get("endDate") as string,
       conceptId,
@@ -48,7 +50,7 @@ function NewExperimentForm() {
       {conceptBody && (
         <div className={styles.conceptPreview}>
           <p className={styles.conceptLabel}>💡 Concept</p>
-          <p className={styles.conceptBody}>{conceptBody}</p>
+          <div className={styles.conceptBody} dangerouslySetInnerHTML={{ __html: conceptBody }} />
         </div>
       )}
 
@@ -63,7 +65,7 @@ function NewExperimentForm() {
         </div>
         <div className={styles.field}>
           <label className={styles.label}>你想解決什麼問題？<span className={styles.optional}>（選填）</span></label>
-          <textarea name="problem" className={styles.textarea} rows={2} placeholder="描述你目前面對的問題或挑戰" />
+          <RichTextEditor value="" onChange={setProblemBody} placeholder="描述你目前面對的問題或挑戰" />
         </div>
         <div className={styles.row}>
           <div className={styles.field}>

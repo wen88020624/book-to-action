@@ -1,13 +1,49 @@
 .page { max-width: 640px; margin: 0 auto; padding: 2rem 1rem 4rem; }
 .loading { max-width: 640px; margin: 2rem auto; padding: 0 1rem; color: var(--color-subtle); }
+
 .conceptBox {
-  background: #f5f3ff; border: 1px solid #e0d9ff; border-radius: var(--radius);
-  padding: 1.25rem; margin-bottom: 0.75rem;
+  background: #f5f3ff;
+  border: 1px solid #e0d9ff;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
 }
-.conceptLabel { font-size: 0.875rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; }
+
+.conceptHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.conceptLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.editHint {
+  font-size: 0.8125rem;
+  color: var(--color-subtle);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  transition: color 0.1s, border-color 0.1s;
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
 .conceptBody {
   font-size: 1.0625rem;
   line-height: 1.6;
+  cursor: pointer;
+  max-height: 320px;
+  overflow-y: auto;
 
   p { margin-bottom: 0.5rem; }
   p:last-child { margin-bottom: 0; }
@@ -29,6 +65,40 @@
   strong { font-weight: 700; }
   em { font-style: italic; }
 }
+
+.editActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.cancelBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-subtle);
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+
+  &:hover { color: var(--color-text); }
+}
+
+.saveBtn {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { background: var(--color-accent-hover); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
 .source { font-size: 0.875rem; color: var(--color-subtle); margin-bottom: 2rem; a { color: var(--color-accent); } }
 .section { margin-bottom: 2rem; }
 .sectionTitle { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
