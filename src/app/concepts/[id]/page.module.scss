@@ -5,7 +5,30 @@
   padding: 1.25rem; margin-bottom: 0.75rem;
 }
 .conceptLabel { font-size: 0.875rem; font-weight: 600; color: var(--color-accent); margin-bottom: 0.5rem; }
-.conceptBody { font-size: 1.0625rem; line-height: 1.6; }
+.conceptBody {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+
+  p { margin-bottom: 0.5rem; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol {
+    padding-left: 1.4rem;
+    margin-bottom: 0.5rem;
+    li { margin-bottom: 0.2rem; }
+  }
+
+  blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 0.875rem;
+    color: var(--color-subtle);
+    font-style: italic;
+    margin: 0.5rem 0;
+  }
+
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+}
 .source { font-size: 0.875rem; color: var(--color-subtle); margin-bottom: 2rem; a { color: var(--color-accent); } }
 .section { margin-bottom: 2rem; }
 .sectionTitle { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }

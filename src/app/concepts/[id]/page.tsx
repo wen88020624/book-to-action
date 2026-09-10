@@ -42,7 +42,10 @@ export default function ConceptDetailPage() {
 
       <div className={styles.conceptBox}>
         <p className={styles.conceptLabel}>💡 Concept</p>
-        <p className={styles.conceptBody}>{concept.body}</p>
+        <div
+          className={styles.conceptBody}
+          dangerouslySetInnerHTML={{ __html: concept.body }}
+        />
       </div>
 
       {book && (

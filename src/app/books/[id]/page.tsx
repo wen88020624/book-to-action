@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import BackLink from "@/components/BackLink"
+import RichTextEditor from "@/components/RichTextEditor"
 import styles from "./page.module.scss"
 
 interface Concept { id: string; body: string; createdAt: string }
@@ -24,6 +25,7 @@ export default function BookDetailPage() {
 
   async function addConcept(e: React.FormEvent) {
     e.preventDefault()
+    if (!conceptBody.trim()) return
     setLoading(true)
     const res = await fetch("/api/concepts", {
       method: "POST",
@@ -48,9 +50,12 @@ export default function BookDetailPage() {
         ) : (
           <div className={styles.list}>
             {book.bookConcepts.map(({ concept }) => (
-              <Link key={concept.id} href={`/concepts/${concept.id}`} className={styles.conceptCard}>
-                {concept.body}
-              </Link>
+              <Link
+                key={concept.id}
+                href={`/concepts/${concept.id}`}
+                className={styles.conceptCard}
+                dangerouslySetInnerHTML={{ __html: concept.body }}
+              />
             ))}
           </div>
         )}
@@ -59,15 +64,12 @@ export default function BookDetailPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>你從這本書吸收了什麼？</h2>
         <form onSubmit={addConcept} className={styles.form}>
-          <textarea
-            className={styles.textarea}
+          <RichTextEditor
+            value=""
+            onChange={setConceptBody}
             placeholder="用自己的話寫下你吸收到的概念，不需要寫成完整筆記。"
-            value={conceptBody}
-            onChange={e => setConceptBody(e.target.value)}
-            rows={4}
-            required
           />
-          <button type="submit" disabled={loading} className={styles.submit}>
+          <button type="submit" disabled={loading || !conceptBody.trim()} className={styles.submit}>
             {loading ? "建立中..." : "建立 Concept"}
           </button>
         </form>
