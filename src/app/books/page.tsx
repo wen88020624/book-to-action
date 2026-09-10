@@ -4,6 +4,8 @@ import { formatDate } from "@/lib/format"
 import BackLink from "@/components/BackLink"
 import styles from "./page.module.scss"
 
+export const dynamic = "force-dynamic"
+
 export default async function BooksPage() {
   const books = await prisma.book.findMany({
     include: { bookConcepts: true },

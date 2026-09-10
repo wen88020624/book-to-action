@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db"
 import { formatDate, daysSince } from "@/lib/format"
 import styles from "./page.module.scss"
 
+export const dynamic = "force-dynamic"
+
 export default async function Home() {
   const [experiments, stats] = await Promise.all([
     prisma.experiment.findMany({
