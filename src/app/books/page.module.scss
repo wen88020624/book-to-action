@@ -1,0 +1,18 @@
+.page { max-width: 640px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.title { font-size: 1.25rem; font-weight: 700; }
+.newBtn {
+  background: var(--color-accent); color: #fff; padding: 0.5rem 1rem;
+  border-radius: 8px; font-size: 0.875rem; font-weight: 500;
+  &:hover { background: var(--color-accent-hover); }
+}
+.list { display: flex; flex-direction: column; gap: 0.5rem; }
+.item {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius);
+  padding: 1rem; box-shadow: var(--shadow);
+  &:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+}
+.itemTitle { font-size: 1rem; font-weight: 600; }
+.itemMeta { font-size: 0.8125rem; color: var(--color-subtle); }
+.empty { color: var(--color-subtle); }

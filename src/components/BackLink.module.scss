@@ -1,0 +1,9 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--color-subtle);
+  margin-bottom: 1.5rem;
+
+  &:hover { color: var(--color-text); }
+}
