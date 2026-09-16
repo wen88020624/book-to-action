@@ -1,3 +1,7 @@
+# Agent notes
+
+產品與架構以根目錄 [CLAUDE.md](./CLAUDE.md) 與 [docs/](./docs/README.md) 為準。迭代功能前先對齊 `docs/PRODUCT.md`。
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

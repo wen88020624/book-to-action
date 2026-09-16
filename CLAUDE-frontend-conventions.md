@@ -1,140 +1,85 @@
-# Frontend Project — CLAUDE.md
+# Frontend Conventions — Book to Action
 
-> Copy this file to your frontend project root as `CLAUDE.md`.
+> 本專案專用。與 Joy UI / Redux / Biome 無關；那些是其他專案的慣例，**不要**套用到這裡。
 
 ## Tech Stack
 
-- React 19 + Next.js 15
+- React 19 + Next.js 16（App Router）+ TypeScript
 - pnpm
-- Biome (linting + formatting — not ESLint/Prettier)
-- Joy UI (UI components)
-- SCSS (styling)
+- SCSS Modules（`page.module.scss` / `*.module.scss`）
+- Prisma 7 + Turso/libSQL
+- TipTap（富文字欄位）
+- ESLint（`eslint-config-next`）
 
-Reference: `package.json`, `biome.json`
+參考：`package.json`、`docs/ARCHITECTURE.md`
 
 ---
 
-## File Structure Contract
+## Page Structure
 
-New pages live under `src/app`. Every new page folder has exactly **three files**:
+新頁面在 `src/app/**`：
 
 | File | Responsibility |
 |---|---|
-| `page.jsx` | Route entry + page shell only. No business logic. |
-| `content.jsx` | Client logic, hooks, dispatch, component assembly. |
-| `page.module.scss` | Page-scoped styles. |
+| `page.tsx` | Route 入口、資料讀取、組裝畫面 |
+| `page.module.scss` | 頁面樣式 |
 
-`page.scss` files in existing code are legacy — do not use for new development.
-
----
-
-## Data Flow Contract (Redux + Saga)
-
-Components dispatch actions only — **never call axios directly**.
-
-```
-Component dispatch → saga → fetchApi → reducer
-```
-
-- Check `swagger.json` before wiring any new API endpoint.
-- Reuse existing API constants and saga patterns wherever possible.
-- `loading` state, token injection, and error handling stay inside Redux/Saga — not in components.
-
-Reference: `swagger.json`, `src/redux/saga/index.jsx`, `src/redux/api/API.jsx`, `src/redux/api/apiService.jsx`
+- UI 文案以**繁體中文**為主（`layout` 為 `zh-TW`）
+- 共用元件放 `src/components/`
+- 工具放 `src/lib/`
+- 不要為新頁面引入 Redux / Saga / axios 管線
 
 ---
 
-## Form Contract
+## Data Access
 
-- Forms use `react-hook-form`.
-- Joy UI inputs integrate via `Controller`.
-- Check `src/components/new-forms` first — reuse existing field components before creating new ones.
-- Field error messages display below the field in red.
-- Validation rules and schemas go into shared `rule` / `schema` / helper files — not inline in components.
-
-Reference: `src/components/new-forms/form-field.jsx`, `src/components/new-forms/select-field.jsx`
-
----
-
-## State Management
-
-| Situation | Tool |
-|---|---|
-| Cross-page, server-driven, or multi-consumer state | Redux |
-| Complex local state within a single page | useImmer |
-
-Do not use `useImmer` as a substitute for global state.
+- Server / Route Handler 透過 `src/lib/db.ts` 的 `prisma`
+- 瀏覽器端呼叫既有 `/api/*`（`fetch`）
+- 新增 endpoint 前對照 `docs/ARCHITECTURE.md` 與現有 `src/app/api/**`
 
 ---
 
 ## Styling
 
-- New page styles → `page.module.scss` only.
-- Shared variables → import from `src/styles/variables.module.scss`.
-- Keep styles page-scoped — no global pollution.
-- Match Joy UI design language: spacing, border-radius, shadow, color scale, component hierarchy.
-
-Reference: `src/app/forbidden/page.module.scss`, `src/styles/variables.module.scss`
+- 新樣式 → 同目錄 `*.module.scss`
+- 全域 → `src/app/globals.scss`（謹慎）
+- 保持簡單、可讀；不要為了「設計系統完整」引入未使用的 UI kit
 
 ---
 
-## Component Organization
+## Forms & Rich Text
 
-- Reusable components → `src/components`.
-- One component per file.
-- Follow the export pattern in `src/components/index.jsx`.
-- Max ~500 lines per file — split into hooks, utils, and subcomponents before hitting the limit.
-
----
-
-## Conventions
-
-- **Import aliases**: `@/`, `@components`, `@hooks/*`, `@redux/*`, `@utils/*`
-- **Redux hooks**: `useDispatch` / `useSelector` from `@react-redux`
-- **Action type naming**: `UPPER_SNAKE_CASE` — e.g. `FETCH_SUTS`, `CREATE_SUT`, `SET_API_ERROR`
-- **Saga watchers**: `takeLatest` for queries/pagination · `takeEvery` for create/update/delete
-- Stay in JSX ecosystem — do not introduce unnecessary new abstractions.
-
-Reference: `jsconfig.json`, `src/hooks/use-redux.jsx`, `src/redux/saga/project.jsx`
+- 簡單表單可用受控 input / form action，與現有頁面一致
+- Concept / Problem 等長文 → 重用 `RichTextEditor`
+- 驗證與錯誤訊息就近處理，避免過早抽象
 
 ---
 
 ## Output Rules
 
-- UI copy in **English only**.
-- No extra documentation unless explicitly requested.
-- Comments only for non-obvious logic.
-- Changes stay scoped — no unrelated modifications.
-
----
-
-## Auth / Cookie Rules
-
-- Cookie path: `/`
-- Do not bypass existing auth / session / provider architecture.
-
-Reference: `src/app/layout.jsx`
+- 變更保持 scope：只改任務需要的檔案
+- 註解只寫非明顯邏輯
+- 產品／架構決策寫進 `docs/`，不要只留在 PR 描述
+- Next.js API 以 `node_modules/next/dist/docs/` 為準
 
 ---
 
 ## Do / Don't
 
 **Do:**
-- Three-file contract for every new page (`page.jsx` / `content.jsx` / `page.module.scss`)
-- `react-hook-form` + existing `new-forms` components
-- All API calls through Redux/Saga pipeline
-- `page.module.scss` for all new page styles
-- Match Joy UI style system for visual consistency
-- `@`-alias imports + existing action naming patterns
+
+- 對齊 Experiments-first 與 SPEC 文案語氣
+- 更新文件（PRODUCT / ARCHITECTURE / EVOLUTION / SPEC）當行為或方向改變
+- 沿用既有 SCSS module 與 TipTap 模式
 
 **Don't:**
-- Call axios directly in components or pages
-- Use `page.scss` for new features
-- Bypass provider or permission checks
-- Use non-English UI copy
+
+- 做成書庫／ISBN／streak／成敗打卡
+- 引入 Redux、Joy UI、Biome「因為慣例檔曾這樣寫」
+- 另起一套與 Experiment 脫節的追蹤模型（模板功能應接上既有循環）
 
 ---
 
 ## Evolving This Document
 
-When a new reusable pattern, architectural convention, or process rule emerges during development, ask before adding it. If confirmed, add it to the relevant section so it applies automatically going forward.
+新的可重用前端慣例出現時，更新本檔對應章節，並在 `docs/EVOLUTION.md` 記一筆（若影響架構或產品）。
