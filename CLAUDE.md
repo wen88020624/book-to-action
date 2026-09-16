@@ -34,7 +34,8 @@ Book → Concept（我吸收了什麼）→ Experiment → Log → Result + Rati
 書 / 平台模板 → 可互動方法論 → 立刻實踐 → 追蹤 → 快速知道適不適合我
 ```
 
-內容可**使用者導入**，也可**平台上架模板**讓人直接套用——兩軌都匯入同一套 Experiment 循環。
+內容可**使用者導入**，也可**平台上架模板**讓人直接套用——兩軌都匯入同一套 Experiment 循環。  
+**下一階段優先：路徑甲（平台模板）** — 使用者選現成模板 → 立刻開始實驗；使用者導入延後。
 
 **This is NOT a reading management tool.** 價值單位是 Experiment（以及未來的 Methodology Template），不是 Book。
 
