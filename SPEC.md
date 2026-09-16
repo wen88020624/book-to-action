@@ -1,10 +1,17 @@
 # Book to Action — Product Spec (MVP)
 
+> 本檔是**現行 MVP** 的頁面與 UX 合約。  
+> 長期願景（方法論互動 Web、平台模板上架等）見 [docs/PRODUCT.md](./docs/PRODUCT.md)。  
+> 技術現況見 [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)。  
+> 決策演進見 [docs/EVOLUTION.md](./docs/EVOLUTION.md)。
+
 ## Product Vision
 
 > 我讀完一本書 → 找到一個真正吸收的 Concept → 把它變成一個 Experiment → 實際記錄 → 最後知道它對我有沒有用。
 
 The strongest value proposition: **「我讀的書，到底有多少真正進入我的人生？」**
+
+North Star 延伸：書中方法論（或平台模板）→ 可互動實踐 → 追蹤 → 快速判斷適不適合自己。MVP 先把 Experiment 循環做穩，再長出導入／模板能力。
 
 ---
 
@@ -382,6 +389,8 @@ This supports:
 - Social features
 - AI features
 - Streak tracking
+- Methodology interactive templates / 平台模板庫（North Star — 見 PRODUCT.md）
+- 大量貼上書中全文的導入管線（後續；注意版權與產品邊界）
 
 ---
 
@@ -390,7 +399,8 @@ This supports:
 | Phase | Deliverable | Status |
 |---|---|---|
 | 1 | UX + User Journey | ✅ Done |
-| 2 | Routes + Component hierarchy | ⬜ |
-| 3 | PostgreSQL schema | ⬜ |
-| 4 | Backend API (Next.js API routes or NestJS) | ⬜ |
-| 5 | Next.js frontend | ⬜ |
+| 2 | Routes + Component hierarchy | ✅ Done |
+| 3 | DB schema（Prisma + Turso/SQLite；非當初草案的裸 Postgres） | ✅ Done |
+| 4 | Backend API（Next.js Route Handlers） | ✅ Done |
+| 5 | Next.js frontend（MVP pages） | ✅ Done |
+| Next | Methodology / 平台模板 / 互動導入 | ⬜ 見 docs/PRODUCT.md + EVOLUTION.md |

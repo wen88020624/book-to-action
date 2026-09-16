@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Book to Action
+
+把書裡的方法論變成可實踐、可追蹤的生活實驗——快速知道這套方法適不適合你。
+
+## 文件（從這裡開始）
+
+| 檔案 | 說明 |
+|---|---|
+| [CLAUDE.md](./CLAUDE.md) | AI / 協作者快速入口 |
+| [docs/README.md](./docs/README.md) | 產品・架構・演進索引 |
+| [docs/PRODUCT.md](./docs/PRODUCT.md) | 產品願景與 North Star |
+| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | 技術架構現況 |
+| [docs/EVOLUTION.md](./docs/EVOLUTION.md) | 演進紀錄 |
+| [SPEC.md](./SPEC.md) | MVP 頁面與 UX 規格 |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+pnpm db:generate
+pnpm db:migrate
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+需要環境變數：`TURSO_DATABASE_URL`、（若需要）`TURSO_AUTH_TOKEN`。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Stack
 
-## Learn More
+Next.js 16 · React 19 · TypeScript · Prisma 7 · Turso/libSQL · SCSS Modules · TipTap
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+細節見 [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)。
