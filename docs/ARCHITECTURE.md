@@ -72,14 +72,19 @@ Book ──< BookConcept >── Concept ──< ConceptExperiment >── Exper
 
 ### 未來擴充預留（尚未入 schema）
 
-對齊 PRODUCT North Star，可能新增（**未實作，勿當現況**）：
+對齊 PRODUCT North Star／路徑甲 L1，可能新增（**未實作，勿當現況**）：
 
-- `Methodology` / `Template`：可互動方法論或平台模板
-- `MethodologyStep`：步驟、引導問題、檢查項
-- Book／Template → Methodology → Experiment 的來源連結
-- 可選：使用者匯入的原文片段（注意版權與儲存策略）
+- `MethodologyTemplate`（或同等）：平台書本練習模板；可標註來源書
+- 模板 → Experiment 的**複製／引入**關係（實驗為可編輯副本）
+- Experiment **內容區塊**：除 freeform Log 外，支援表格等結構化資料（例：時段 × 練習紀錄）
+- （L2）PDF／使用者現況 + LLM 生成管線 — 另 Phase，勿與 L1 schema 綁死
 
 新增前先更新 PRODUCT / EVOLUTION，再改 schema。
+
+舊草案曾提過的：
+
+- `Methodology` / `MethodologyStep`：可併入或改名為 Template + 內容區塊
+- 可選：使用者匯入的原文片段（注意版權與儲存策略）
 
 ---
 
